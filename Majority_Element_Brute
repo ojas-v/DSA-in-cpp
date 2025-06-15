@@ -1,0 +1,57 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+/**
+ * Returns the majority element (the element that appears more than n/2 times)
+ * in the array nums. If no such element exists, returns -1.
+ *
+ * Time complexity: O(n²) in the worst case, since for each element we scan the entire array.
+ * Space complexity: O(1) additional space.
+ */
+int majorityElement(const vector<int> &nums) {
+    int n = nums.size();
+
+    // For each candidate value in nums...
+    for (int val : nums) {
+        int freq = 0;
+
+        // Count how many times val appears in the entire array
+        for (int el : nums) {
+            if (el == val) {
+                freq++;
+            }
+        }
+
+        // If it appears more than n/2 times, it's the majority
+        if (freq > n / 2) {
+            return val;
+        }
+    }
+
+    // No majority element found
+    return -1;
+}
+
+int main() {
+    // Example array; you can replace it with any input
+    int arr[] = {2, 2, 3, 2, 4, 2, 2};
+
+    // Compute the length of the array
+    int n = sizeof(arr) / sizeof(arr[0]);
+
+    // Copy elements into a std::vector for easier handling
+    vector<int> nums(arr, arr + n);
+
+    // Find the majority element
+    int result = majorityElement(nums);
+
+    // Output the result
+    if (result != -1) {
+        cout << "Majority element is: " << result << endl;
+    } else {
+        cout << "Majority element doesn't exist" << endl;
+    }
+
+    return 0;
+}
