@@ -1,0 +1,66 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+/*
+ * majority_moore.cpp
+ *
+ *   This runs in O(n) time and uses O(1) additional space.
+ *
+ * Usage:
+ *   1. Compile:
+ *        g++ -std=c++11 majority_boyer_moore.cpp -o majority_m
+ *   2. Run:
+ *        ./majority_m
+ *   3. To test with your own array, modify the `arr[]` initializer in main()
+ *      or adapt the code to read input from stdin/file.
+ *
+ * Time Complexity:    O(n)
+ * Space Complexity:   O(1) additional space
+ *
+ * Note:
+ *   This implementation always returns a candidate. If you need to
+ *   verify that the candidate actually appears more than n/2 times,
+ *   add a second pass to count its occurrences.
+ */
+
+int majorityElement(const vector<int> &nums) {
+    int freq = 0;
+    int ans  = 0;
+
+    // Single pass to find a candidate
+    for (int x : nums) {
+        if (freq == 0) {
+            // Pick a new candidate
+            ans = x;
+            freq = 1;
+        } else if (ans == x) {
+            // Same as current candidate: increment count
+            freq++;
+        } else {
+            // Different element: decrement count
+            freq--;
+        }
+    }
+
+    // At this point, 'ans' holds the candidate majority element
+    return ans;
+}
+
+int main() {
+    // Example array; replace with any values you wish to test
+    int arr[] = {2, 2, 3, 2, 4, 2, 2};
+    int n     = sizeof(arr) / sizeof(arr[0]);
+
+    // Copy into a std::vector for ease of use
+    vector<int> nums(arr, arr + n);
+
+    // Compute the majority element candidate
+    int result = majorityElement(nums);
+
+    // Display the result
+    // Note: to ensure the result truly is a majority, you may
+    //       add a verification pass counting its occurrences.
+    cout << "Majority element is: " << result << endl;
+    return 0;
+}
