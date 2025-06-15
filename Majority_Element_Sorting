@@ -1,0 +1,70 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+using namespace std;
+
+/*
+ * majority_sorted.cpp
+ *
+ *   This approach runs in O(n log n) time (due to sorting) and uses O(1)
+ *   additional space (aside from the input vector).
+ *
+ * Usage:
+ *   1. Compile:
+ *        g++ -std=c++11 majority_sorted.cpp -o majority_sorted
+ *   2. Run:
+ *        ./majority_sorted
+ *   3. To test with your own data, modify the `arr[]` initializer in main()
+ *      or extend the code to read from stdin/file.
+ *
+ * Time Complexity:    O(n log n)
+ * Space Complexity:   O(1) additional space
+ */
+
+int majorityElement(vector<int> &nums) {
+    int n = nums.size();
+    
+    // Sort the array so that equal elements become contiguous
+    sort(nums.begin(), nums.end());
+
+    // Track the current run length and the candidate answer
+    int freq = 1;
+    int ans  = nums[0];
+
+    // Scan from the second element onwards
+    for (int i = 1; i < n; i++) {
+        if (nums[i] == nums[i - 1]) {
+            // Same as previous: extend current run
+            freq++;
+        } else {
+            // New value: reset run length
+            freq = 1;
+            ans  = nums[i];
+        }
+        // If this value exceeds n/2 occurrences, return immediately
+        if (freq > n / 2) {
+            return ans;
+        }
+    }
+
+    // If we never found freq > n/2, return the last candidate.
+    // Note: if no majority exists, this will return the last inspected value.
+    return ans;
+}
+
+int main() {
+    // Example array; replace with any values you wish to test
+    int arr[] = {2, 2, 3, 2, 4, 2, 2};
+    int n     = sizeof(arr) / sizeof(arr[0]);
+
+    // Copy into a std::vector for ease of use
+    vector<int> nums(arr, arr + n);
+
+    // Compute the majority element
+    int result = majorityElement(nums);
+
+    // Display the result
+    // Note: this implementation returns a candidate even if no strict majority exists.
+    cout << "Majority element is: " << result << endl;
+    return 0;
+}
