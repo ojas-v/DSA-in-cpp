@@ -50,6 +50,17 @@ public:
             head = newNode;
         }
     }
+
+   // Function to print the LL
+   void printLL() {
+        Node* temp = head;
+
+        while(temp != NULL){
+            cout << temp->data << " ";
+            temp = temp->next;
+        }
+        cout << "NULL"<< endl;
+    }
 };
 
 int main() {
@@ -61,7 +72,8 @@ int main() {
     ll.push_front(2);
     ll.push_front(3);
 
-    // Note: Currently there is no function to print or traverse the list.
+    // Call the function to print or traverse the list.
+   ll.printLL();
 
     return 0;
 }
