@@ -51,6 +51,20 @@ public:
         }
     }
 
+   // Function to add a new node at the back of the list
+   void push_back(int val){
+        Node* newNode = new Node(val);
+
+        if(head == NULL){
+            head = tail = newNode;
+        }
+        else{
+            tail->next = newNode;
+            tail = newNode;
+        }
+    }
+
+
    // Function to print the LL
    void printLL() {
         Node* temp = head;
@@ -72,8 +86,11 @@ int main() {
     ll.push_front(2);
     ll.push_front(3);
 
+    // Insert elements at the back
+    ll.push_back(0);
+   
     // Call the function to print or traverse the list.
-   ll.printLL();
+    ll.printLL();
 
     return 0;
 }
